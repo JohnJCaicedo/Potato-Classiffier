@@ -1,8 +1,26 @@
 import matplotlib.pyplot as plt
 
+def class_switch(argument):
+    switcher = {
+        1: classes[0],
+        2: classes[1],
+        3: classes[2],
+        4: classes[3],
+        5: classes[4],
+        6: classes[5],
+        7: classes[6],
+        8: classes[7],
+        9: classes[8],
+        10: classes[9],
+        11: classes[10],
+        12: classes[11]
+    }
+    return switcher.get(argument, "Invalid class")
+
 def visualize_gt_data(dataset, attributes):
     imgs = []
     gt_labels = []
+    clases = []
 
     n_cols = 5
     n_rows = 3
@@ -23,12 +41,31 @@ def visualize_gt_data(dataset, attributes):
         imgs.append(img)
         gt_labels.append("{}\n{}\n{}".format(gt_tipo, gt_dano, gt_tamano))
 
+    for i in range(n_cols * n_rows):
+
+      if gt_labels[i] == 'Pastusa\nBuena\nMediana':case = 1
+      if gt_labels[i] == 'Pastusa\nBuena\nGrande' :case = 2
+      if gt_labels[i] == 'Pastusa\nBuena\nMuy Grande' :case = 3
+      if gt_labels[i] == 'Pastusa\nDefectuosa\nMediana':case = 4
+      if gt_labels[i] == 'Pastusa\nDefectuosa\nGrande' :case = 5
+      if gt_labels[i] == 'Pastusa\nDefectuosa\nMuy Grande' :case = 6
+      if gt_labels[i] == 'R12\nBuena\nMediana':case = 7
+      if gt_labels[i] == 'R12\nBuena\nGrande' :case = 8
+      if gt_labels[i] == 'R12\nBuena\nMuy Grande' :case = 9
+      if gt_labels[i] == 'R12\nDefectuosa\nMediana':case = 10
+      if gt_labels[i] == 'R12\nDefectuosa\nGrande' :case = 11
+      if gt_labels[i] == 'R12\nDefectuosa\nMuy Grande' :case = 12
+
+      clases.append(class_switch(case))
+
+	
+    # IMAGE GRID
     title = "Ground truth labels"
 
     fig, axs = plt.subplots(n_rows, n_cols, figsize=(10, 10))
     axs = axs.flatten()
-    for img, ax, label in zip(imgs, axs, gt_labels):
-        ax.set_xlabel(label, rotation=0)
+    for img, ax, label, clases in zip(imgs, axs, gt_labels, clases):
+        ax.set_xlabel(clases, rotation=0)
         ax.get_xaxis().set_ticks([])
         ax.get_yaxis().set_ticks([])
         ax.imshow(img)
